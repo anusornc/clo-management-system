@@ -1,17 +1,11 @@
+// Double-check that this file is free of typos
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
-import type { NextAuthOptions } from "next-auth"
+import { NextAuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { db } from "@/lib/db"
 import { compare } from "bcrypt"
 
 export const authOptions: NextAuthOptions = {
-  adapter: PrismaAdapter(db),
-  session: {
-    strategy: "jwt",
-  },
-  pages: {
-    signIn: "/login",
-  },
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -49,27 +43,12 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
-  callbacks: {
-    session: ({ session, token }) => {
-      return {
-        ...session,
-        user: {
-          ...session.user,
-          id: token.id,
-          role: token.role,
-        },
-      }
-    },
-    jwt: ({ token, user }) => {
-      if (user) {
-        return {
-          ...token,
-          id: user.id,
-          role: user.role,
-        }
-      }
-      return token
-    },
+  pages: {
+    signIn: "/login",
   },
+  session: {
+    strategy: "jwt",
+  },
+  secret: process.env.NEXTAUTH_SECRET,
+  debug: true,
 }
-

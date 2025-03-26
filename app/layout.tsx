@@ -11,7 +11,7 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata = {
   title: "CLO Management System",
   description: "Course Learning Outcomes Management System in มคอ.3 Format",
-    generator: 'v0.dev'
+  generator: 'v0.dev'
 }
 
 export default function RootLayout({
@@ -34,7 +34,3 @@ export default function RootLayout({
     </html>
   )
 }
-
-
-
-import './globals.css'

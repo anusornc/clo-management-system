@@ -47,23 +47,33 @@ export default function LoginPage() {
     const email = formData.get("email") as string
     const password = formData.get("password") as string
 
-    const result = await signIn("credentials", {
-      email,
-      password,
-      redirect: false,
-    })
+    try {
+      const result = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+        callbackUrl: "/"
+      })
 
-    if (result?.error) {
+      if (result?.error) {
+        toast({
+          variant: "destructive",
+          title: t.errorMessage,
+        })
+        setIsLoading(false)
+        return
+      }
+
+      router.push("/")
+      router.refresh()
+    } catch (error) {
+      console.error("Sign in error:", error)
       toast({
         variant: "destructive",
         title: t.errorMessage,
       })
       setIsLoading(false)
-      return
     }
-
-    router.push("/")
-    router.refresh()
   }
 
   return (
@@ -101,4 +111,3 @@ export default function LoginPage() {
     </div>
   )
 }
-

@@ -34,7 +34,7 @@ async function main() {
 
   // Create sample PLOs
   const plos = await Promise.all([
-    prisma.plo.upsert({
+    prisma.pLO.upsert({
       where: { id: "plo-1" },
       update: {},
       create: {
@@ -46,7 +46,7 @@ async function main() {
         program: "Computer Science",
       },
     }),
-    prisma.plo.upsert({
+    prisma.pLO.upsert({
       where: { id: "plo-2" },
       update: {},
       create: {
@@ -59,7 +59,7 @@ async function main() {
         program: "Computer Science",
       },
     }),
-    prisma.plo.upsert({
+    prisma.pLO.upsert({
       where: { id: "plo-3" },
       update: {},
       create: {
@@ -102,4 +102,3 @@ main()
   .finally(async () => {
     await prisma.$disconnect()
   })
-
